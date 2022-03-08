@@ -4,7 +4,8 @@ import { StyledCard } from './styles';
 const Card = ({item}) => {
   return (
     <StyledCard>
-      <p>{item.title}</p>
+      <span>{item.id}</span>
+      <span> {item.title}</span>
     </StyledCard>
   )};
   

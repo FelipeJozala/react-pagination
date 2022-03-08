@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
-import Card from './components/card/Card';
+import CardList from './components/CardList/CardList';
+import PaginationList from './components/PaginationList/PaginationList';
+import GlobalStyle from './styles/Global';
 
 function App() {
   const [ apiData, setApiData ] = useState([])
   const [actualPage , setActualPage ] = useState(0)
 
-  const itensInPage = 15
+  const itensInPage = 10
   const pages = Math.ceil(apiData.length /itensInPage)
   const startIndex = actualPage * itensInPage
   const endIndex = startIndex + itensInPage
@@ -26,17 +27,19 @@ function App() {
 		
 	},[]);
 
-  return (
-    <div>
-      {Array.from(Array(pages), (item, index)=>{
-        return <button key={index} onClick={e => setActualPage(Number(index))}>{index + 1}</button>
-      })}
+	const handlePagination = (index) => {
+		setActualPage(index)
+	}
 
-      {currentItens.map(item => {
-        return <Card key={item.id} item={item}/>
-      })}
-    </div>
-  );
+  return (
+		<>
+			<GlobalStyle/>
+    	<main>
+				<CardList currentItens={currentItens}/>
+				<PaginationList pages={pages} handlePagination={handlePagination}/>
+    	</main>
+		</>
+	);
 };
 
 export default App;
